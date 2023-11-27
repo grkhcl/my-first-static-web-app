@@ -24,13 +24,13 @@ This solution accelerator can be used to deploy an application that offers an in
 
 3. Upload the images in the `product-images` directory to a blob container in the Storage Account. Generate a SAS url for the blob storage container. We will need this in a later step.
 
-4. Create a file named `local.settings.json` in the `api` directory of the repository. Make sure to add the following variables to `local.settings.json`, and publish them to the application settings. More details on configuring application settings for Azure Static Web Apps can be found [here](https://learn.microsoft.com/en-us/azure/static-web-apps/application-settings).
+4. Create a file named `local.settings.json` in the `api` directory of the repository. Make sure to add the following variables to `local.settings.json`, and publish them to the application settings. More details on configuring application settings for Azure Static Web Apps can be found [here](https://learn.microsoft.com/en-us/azure/static-web-apps/application-settings). The `AzureWebJobsStorage` variable can be left empty for development purposes.
 
 ```
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "XXX",
+    "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "python",
     "AZURE_OPENAI_ENDPOINT": "https://XXX.openai.azure.com/",
     "AZURE_OPENAI_API_KEY": "XXX",
@@ -53,8 +53,9 @@ This solution accelerator can be used to deploy an application that offers an in
   }
 }
 ```
+5. In case you are using an Azure Speech Services instance in a region different from `westeurope`, update line 17 the `main.js` in the `src/js` folder to reflect that.
 
-5. Run the cells in `create-index-and-database.ipynb` notebook to upload the product data to Azure Cognitive Search and the Azure SQL Database.
+6. Run the cells in `create-index-and-database.ipynb` notebook to upload the product data to Azure Cognitive Search and the Azure SQL Database.
 
 6. For running the app locally, make sure to have ODBC Driver 17 for SQL Server installed.
 
