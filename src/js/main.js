@@ -57,8 +57,8 @@ function setupWebRTC() {
   })
     .then(response => response.json())
     .then(response => { 
-      IceServerUsername = response.username
-      IceServerCredential = response.credential
+      IceServerUsername = "BQAANlcYFAAB2iLiR/xzIIu+Dh9rXYwUYQSwFSW4a2wAAAAMARBLzcgb+8ZGv7VTu51ROGIsy0JAwxLjLvWA4f7ycmuImHhzHIc="
+      IceServerCredential = "sMzoUR/YgqyiCEVnIOPCPz3aPnI="
 
       peerConnection = new RTCPeerConnection({
         iceServers: [{
