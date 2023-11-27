@@ -52,10 +52,10 @@ function removeDocumentReferences(str) {
 // Setup WebRTC
 function setupWebRTC() {
   // Create WebRTC peer connection
-  fetch("/api/getIceServerToken", {
-    method: "POST"
+  fetch("", {
+    
   })
-    //then(response => response.json())
+    .then(response => response.json())
     .then(response => { 
       IceServerUsername = "BQAANlcYFAAB2iLiR/xzIIu+Dh9rXYwUYQSwFSW4a2wAAAAMARBLzcgb+8ZGv7VTu51ROGIsy0JAwxLjLvWA4f7ycmuImHhzHIc="
       IceServerCredential = "sMzoUR/YgqyiCEVnIOPCPz3aPnI="
@@ -223,10 +223,10 @@ window.startSession = () => {
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
   document.getElementById('playVideo').className = "round-button-hide"
 
-  fetch("/api/getSpeechToken", {
-    method: "POST"
+  fetch("", {
+    
   })
-    //.then(response => response.text())
+    
     .then(response => { 
       speechSynthesisConfig.authorizationToken = response;
       token = "eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJ3ZXN0dXMyIiwic3Vic2NyaXB0aW9uLWlkIjoiNTE1NzZhOGZkY2YzNDI4MDk0MDFhOGNmNmVkMmM4NjEiLCJwcm9kdWN0LWlkIjoiU3BlZWNoU2VydmljZXMuUzAiLCJjb2duaXRpdmUtc2VydmljZXMtZW5kcG9pbnQiOiJodHRwczovL2FwaS5jb2duaXRpdmUubWljcm9zb2Z0LmNvbS9pbnRlcm5hbC92MS4wLyIsImF6dXJlLXJlc291cmNlLWlkIjoiL3N1YnNjcmlwdGlvbnMvY2RkMTMwMzAtNzdlMC00MWE1LWIwZDktNTU4YzdlMTA1NTFjL3Jlc291cmNlR3JvdXBzL0FJTUxQT0MyREVQL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvdGV4dHRvc3BlZWNoc3R1ZGlvIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy53ZXN0dXMyIiwiZXhwIjoxNzAxMTA0MzkxLCJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMifQ.SsgT24MWJ5q7azel4G7U8srx9uEf-7-w2C_Qxg7F5nj3Xw1OxSIsETTRXSPrVh4QhccO6DLxEfd25PTXOH-C8w"
