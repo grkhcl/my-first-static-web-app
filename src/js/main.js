@@ -14,7 +14,7 @@ var system_prompt = `You are an AI assistant focused on delivering brief product
 
 const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you want to use a different voice
 
-const CogSvcRegion = "westus2" // Fill your Azure cognitive services region here, e.g. westus2
+const CogSvcRegion = "westeurope" // Fill your Azure cognitive services region here, e.g. westus2
 
 const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
 let IceServerUsername
@@ -52,13 +52,13 @@ function removeDocumentReferences(str) {
 // Setup WebRTC
 function setupWebRTC() {
   // Create WebRTC peer connection
-  fetch("https://github.com/grkhcl/my-first-static-web-app/tree/main/api/getIceServerToken", {
-    method: "POST"    
+  fetch("/api/getIceServerToken", {
+    method: "POST"
   })
     .then(response => response.json())
     .then(response => { 
-      IceServerUsername = "BQAANlcYFAAB2iLiR/xzIIu+Dh9rXYwUYQSwFSW4a2wAAAAMARBLzcgb+8ZGv7VTu51ROGIsy0JAwxLjLvWA4f7ycmuImHhzHIc="
-      IceServerCredential = "sMzoUR/YgqyiCEVnIOPCPz3aPnI="
+      IceServerUsername = response.username
+      IceServerCredential = response.credential
 
       peerConnection = new RTCPeerConnection({
         iceServers: [{
@@ -223,13 +223,13 @@ window.startSession = () => {
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
   document.getElementById('playVideo').className = "round-button-hide"
 
-  fetch("https://github.com/grkhcl/my-first-static-web-app/tree/main/api/getSpeechToken", {
-    method: "POST"    
+  fetch("/api/getSpeechToken", {
+    method: "POST"
   })
-    .then(response => response.json())   
+    .then(response => response.text())
     .then(response => { 
       speechSynthesisConfig.authorizationToken = response;
-      token = "eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJ3ZXN0dXMyIiwic3Vic2NyaXB0aW9uLWlkIjoiNTE1NzZhOGZkY2YzNDI4MDk0MDFhOGNmNmVkMmM4NjEiLCJwcm9kdWN0LWlkIjoiU3BlZWNoU2VydmljZXMuUzAiLCJjb2duaXRpdmUtc2VydmljZXMtZW5kcG9pbnQiOiJodHRwczovL2FwaS5jb2duaXRpdmUubWljcm9zb2Z0LmNvbS9pbnRlcm5hbC92MS4wLyIsImF6dXJlLXJlc291cmNlLWlkIjoiL3N1YnNjcmlwdGlvbnMvY2RkMTMwMzAtNzdlMC00MWE1LWIwZDktNTU4YzdlMTA1NTFjL3Jlc291cmNlR3JvdXBzL0FJTUxQT0MyREVQL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvdGV4dHRvc3BlZWNoc3R1ZGlvIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy53ZXN0dXMyIiwiZXhwIjoxNzAxMTA0MzkxLCJpc3MiOiJ1cm46bXMuY29nbml0aXZlc2VydmljZXMifQ.SsgT24MWJ5q7azel4G7U8srx9uEf-7-w2C_Qxg7F5nj3Xw1OxSIsETTRXSPrVh4QhccO6DLxEfd25PTXOH-C8w"
+      token = response
     })
     .then(() => {
       speechSynthesizer = new SpeechSDK.SpeechSynthesizer(speechSynthesisConfig, null)
